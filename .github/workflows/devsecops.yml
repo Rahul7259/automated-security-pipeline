@@ -57,23 +57,3 @@ jobs:
       - name: Check SonarCloud Quality Gate
         run: |
           echo "Quality Gate status will be visible in SonarCloud dashboard"
-```
-
-Save the file! ✅
-
----
-
-## ��� What This Workflow Does (Step by Step):
-
-1. **Triggers on:**
-   - Push to `main` branch
-   - Pull requests to `main`
-
-2. **Runs these steps:**
-```
-   ✓ Checks out your code
-   ✓ Sets up Python 3.11
-   ✓ Installs Flask, pytest, etc.
-   ✓ Runs tests + generates coverage.xml
-   ✓ Sends code to SonarCloud for scanning
-   ✓ Checks quality gate status
