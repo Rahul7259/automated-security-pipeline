@@ -1,6 +1,4 @@
-# automated-security-pipeline
-DevSecOps pipeline with SonarCloud SAST integration
-# ��� Automated Security Pipeline
+# Automated Security Pipeline
 
 ![DevSecOps](https://img.shields.io/badge/DevSecOps-Pipeline-blue)
 ![Python](https://img.shields.io/badge/Python-3.11-green)
@@ -8,18 +6,18 @@ DevSecOps pipeline with SonarCloud SAST integration
 ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-black)
 ![OWASP](https://img.shields.io/badge/OWASP-Top%2010-red)
 
-A **DevSecOps pipeline** that integrates **SonarCloud** via **GitHub Actions** to automate Static Application Security Testing (SAST), identifying OWASP Top 10 vulnerabilities and enforcing secure coding gates prior to deployment.
+A DevSecOps pipeline that integrates SonarCloud via GitHub Actions to automate Static Application Security Testing (SAST), identifying OWASP Top 10 vulnerabilities and enforcing secure coding gates prior to deployment.
 
 ---
 
-## ��� Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Project Structure](#project-structure)
 - [Tech Stack](#tech-stack)
 - [Vulnerabilities Detected](#vulnerabilities-detected)
 - [Pipeline Flow](#pipeline-flow)
-- [Setup & Installation](#setup--installation)
+- [Setup and Installation](#setup-and-installation)
 - [Running Tests Locally](#running-tests-locally)
 - [SonarCloud Configuration](#sonarcloud-configuration)
 - [GitHub Actions Workflow](#github-actions-workflow)
@@ -27,21 +25,21 @@ A **DevSecOps pipeline** that integrates **SonarCloud** via **GitHub Actions** t
 
 ---
 
-## ��� Overview
+## Overview
 
-This project demonstrates a complete **DevSecOps pipeline** that automatically scans code for security vulnerabilities on every push to the `main` branch. By integrating SonarCloud's SAST capabilities into GitHub Actions, security issues are caught **before** they reach production.
+This project demonstrates a complete DevSecOps pipeline that automatically scans code for security vulnerabilities on every push to the `main` branch. By integrating SonarCloud's SAST capabilities into GitHub Actions, security issues are caught before they reach production.
 
 ### Key Features
 
-- ✅ Automated security scanning on every push and pull request
-- ✅ OWASP Top 10 vulnerability detection
-- ✅ Code coverage reporting with pytest-cov
-- ✅ Quality gate enforcement before deployment
-- ✅ Zero manual intervention required
+- Automated security scanning on every push and pull request
+- OWASP Top 10 vulnerability detection
+- Code coverage reporting with pytest-cov
+- Quality gate enforcement before deployment
+- Zero manual intervention required
 
 ---
 
-## ��� Project Structure
+## Project Structure
 
 ```
 automated-security-pipeline/
@@ -59,103 +57,102 @@ automated-security-pipeline/
 
 ---
 
-## ���️ Tech Stack
+## Tech Stack
 
 | Tool | Purpose |
 |------|---------|
-| **Python 3.11** | Application language |
-| **Flask** | Web framework |
-| **pytest + pytest-cov** | Testing & coverage |
-| **GitHub Actions** | CI/CD automation |
-| **SonarCloud** | SAST security scanning |
-| **Git** | Version control |
+| Python 3.11 | Application language |
+| Flask | Web framework |
+| pytest + pytest-cov | Testing and coverage |
+| GitHub Actions | CI/CD automation |
+| SonarCloud | SAST security scanning |
+| Git | Version control |
 
 ---
 
-## ��� Vulnerabilities Detected
+## Vulnerabilities Detected
 
-The sample Flask app contains **intentional OWASP Top 10 vulnerabilities** for demonstration:
+The sample Flask app contains intentional OWASP Top 10 vulnerabilities for demonstration:
 
 | Vulnerability | OWASP Category | Location |
 |---------------|----------------|----------|
-| **SQL Injection** | A03 - Injection | `app.py` `/user` endpoint |
-| **Command Injection** | A03 - Injection | `app.py` `/ping` endpoint |
-| **XSS (Cross-Site Scripting)** | A03 - Injection | `app.py` `/greet` endpoint |
-| **Path Traversal** | A01 - Broken Access Control | `app.py` `/read` endpoint |
-| **Weak Cryptography (MD5)** | A02 - Cryptographic Failures | `app.py` `/hash` endpoint |
-| **Hardcoded Secret** | A02 - Cryptographic Failures | `app.py` `SECRET_KEY` |
-| **Debug Mode in Production** | A05 - Security Misconfiguration | `app.py` `app.run()` |
+| SQL Injection | A03 - Injection | app.py /user endpoint |
+| Command Injection | A03 - Injection | app.py /ping endpoint |
+| XSS (Cross-Site Scripting) | A03 - Injection | app.py /greet endpoint |
+| Path Traversal | A01 - Broken Access Control | app.py /read endpoint |
+| Weak Cryptography (MD5) | A02 - Cryptographic Failures | app.py /hash endpoint |
+| Hardcoded Secret | A02 - Cryptographic Failures | app.py SECRET_KEY |
+| Debug Mode in Production | A05 - Security Misconfiguration | app.py app.run() |
 
-> ⚠️ **Note:** These vulnerabilities are **intentional** for educational purposes. Never use this code in production!
+> NOTE: These vulnerabilities are intentional for educational purposes. Never use this code in production.
 
 ---
 
-## ��� Pipeline Flow
+## Pipeline Flow
 
 ```
 Developer pushes code
-        │
-        ▼
-┌───────────────────┐
-│  GitHub Actions   │  ← Triggers automatically on push/PR
-└────────┬──────────┘
-         │
-         ├─► ✅ Checkout repository
-         │
-         ├─► ✅ Set up Python 3.11
-         │
-         ├─► ✅ Install dependencies
-         │       └── pip install -r requirements.txt
-         │
-         ├─► ✅ Run tests with coverage
-         │       └── pytest → generates coverage.xml
-         │
-         ├─► ✅ SonarCloud SAST Scan
-         │       ├── Analyzes Python code
-         │       ├── Checks OWASP Top 10
-         │       └── Uploads results to SonarCloud
-         │
-         └─► ✅ Quality Gate Check
-                 ├── PASS → Deployment allowed ✅
-                 └── FAIL → Deployment blocked ❌
+        |
+        v
++-------------------+
+|  GitHub Actions   |  Triggers automatically on push/PR
++--------+----------+
+         |
+         |---> Checkout repository
+         |
+         |---> Set up Python 3.11
+         |
+         |---> Install dependencies
+         |
+         |---> Run tests with coverage
+         |       generates coverage.xml
+         |
+         |---> SonarCloud SAST Scan
+         |       Analyzes Python code
+         |       Checks OWASP Top 10
+         |       Uploads results to SonarCloud
+         |
+         └---> Quality Gate Check
+                 PASS --> Deployment allowed
+                 FAIL --> Deployment blocked
 ```
 
 ---
 
-## ⚙️ Setup & Installation
+## Setup and Installation
 
 ### Prerequisites
 
 - Python 3.11+
 - Git
 - GitHub account
-- SonarCloud account (free at [sonarcloud.io](https://sonarcloud.io))
+- SonarCloud account (free at sonarcloud.io)
 
-### Step 1 — Clone the Repository
+### Step 1 - Clone the Repository
 
 ```bash
 git clone https://github.com/Rahul7259/automated-security-pipeline.git
 cd automated-security-pipeline
 ```
 
-### Step 2 — Install Dependencies
+### Step 2 - Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 3 — Set Up SonarCloud
+### Step 3 - Set Up SonarCloud
 
-1. Log in to [sonarcloud.io](https://sonarcloud.io) with your GitHub account
-2. Create a new project → select your GitHub repo
-3. Choose **"GitHub Actions"** as the analysis method
-4. Disable **Automatic Analysis** (Administration → Analysis Method)
-5. Generate a token (My Account → Security → Generate Token)
-6. Add the token to GitHub Secrets as `SONAR_TOKEN`
+1. Log in to sonarcloud.io with your GitHub account
+2. Create a new project and select your GitHub repo
+3. Choose GitHub Actions as the analysis method
+4. Disable Automatic Analysis (Administration > Analysis Method)
+5. Generate a token (My Account > Security > Generate Token)
+6. Add the token to GitHub Secrets as SONAR_TOKEN
 
 ---
 
-## ��� Running Tests Locally
+## Running Tests Locally
 
 ```bash
 # Run tests
@@ -165,16 +162,9 @@ python -m pytest tests/ -v
 python -m pytest tests/ --cov=app --cov-report=xml:coverage.xml --cov-report=term-missing
 ```
 
-Expected output:
-```
-tests/test_app.py::test_user_endpoint   PASSED ✅
-tests/test_app.py::test_ping_endpoint   PASSED ✅
-tests/test_app.py::test_greet_endpoint  PASSED ✅
-```
-
 ---
 
-## ☁️ SonarCloud Configuration
+## SonarCloud Configuration
 
 The `sonar-project.properties` file configures how SonarCloud scans the project:
 
@@ -192,43 +182,43 @@ sonar.coverage.exclusions=tests/**
 
 ---
 
-## ��� GitHub Actions Workflow
+## GitHub Actions Workflow
 
 The pipeline is defined in `.github/workflows/devsecops.yml` and triggers on:
-- Every **push** to `main` branch
-- Every **pull request** to `main` branch
+- Every push to the main branch
+- Every pull request to the main branch
 
 ### Workflow Steps
 
-```yaml
-1. Checkout repository      # Full git history for blame data
-2. Set up Python 3.11       # Configure Python environment
-3. Install dependencies     # Flask, pytest, pytest-cov
-4. Run tests with coverage  # Generates coverage.xml for SonarCloud
-5. SonarCloud Scan          # SAST analysis + OWASP Top 10 check
-6. Quality Gate Check       # Enforce secure coding standards
+```
+1. Checkout repository      - Full git history for blame data
+2. Set up Python 3.11       - Configure Python environment
+3. Install dependencies     - Flask, pytest, pytest-cov
+4. Run tests with coverage  - Generates coverage.xml for SonarCloud
+5. SonarCloud Scan          - SAST analysis and OWASP Top 10 check
+6. Quality Gate Check       - Enforce secure coding standards
 ```
 
 ---
 
-## ��� Results
+## Results
 
-After the pipeline runs, visit your **SonarCloud dashboard** to see:
+After the pipeline runs, visit your SonarCloud dashboard to see:
 
-- ��� **Security Hotspots** — SQL Injection, Command Injection, XSS, etc.
-- ��� **Code Smells** — Bad coding practices
-- ��� **Bugs** — Potential runtime errors
-- ��� **Code Coverage** — % of code covered by tests
-- ✅ **Quality Gate Status** — Pass or Fail
-
----
-
-## ��� Author
-
-**Rahul** — [@Rahul7259](https://github.com/Rahul7259)
+- Security Hotspots - SQL Injection, Command Injection, XSS, etc.
+- Code Smells - Bad coding practices
+- Bugs - Potential runtime errors
+- Code Coverage - Percentage of code covered by tests
+- Quality Gate Status - Pass or Fail
 
 ---
 
-## ��� License
+## Author
 
-This project is for **educational purposes only**. The vulnerabilities in the sample app are intentional and should never be used in production code.
+Rahul - https://github.com/Rahul7259
+
+---
+
+## License
+
+This project is for educational purposes only. The vulnerabilities in the sample app are intentional and should never be used in production code.
