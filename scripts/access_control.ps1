@@ -9,11 +9,11 @@ param(
 # Read authorized users list
 $authorizedUsers = Get-Content $AuthorizedUsersFile
 
-# Check if deploying user is authorized
+# Check if the deploying user is authorized
 if ($authorizedUsers -contains $GitHubActor) {
-    Write-Host "✅ Access granted: $GitHubActor is authorized to deploy"
+    Write-Host " Access granted: $GitHubActor is authorized to deploy"
     exit 0
 } else {
-    Write-Host "❌ Access denied: $GitHubActor is not authorized to deploy"
+    Write-Host " Access denied: $GitHubActor is not authorized to deploy"
     exit 1
 }
