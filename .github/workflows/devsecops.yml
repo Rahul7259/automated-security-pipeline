@@ -1,23 +1,21 @@
 name: DevSecOps Pipeline
-
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
 jobs:
   security-pipeline:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Set up Python 3.11
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.11'
 
@@ -33,11 +31,11 @@ jobs:
           "developers" \
           "staging"
 
-    # NEW — Access Control Verification (PowerShell)  
+    # NEW — Access Control Verification (PowerShell)
     - name: Verify Authorized Deployer
       shell: pwsh
       run: |
-        ./scripts/access_control.ps1 \
+        ./scripts/access_control.ps1 `
           -GitHubActor "${{ github.actor }}"
 
     - name: Run tests with coverage
@@ -55,7 +53,7 @@ jobs:
 
     # NEW — Upload Access Audit Log
     - name: Upload Access Audit Trail
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: access-audit-log
